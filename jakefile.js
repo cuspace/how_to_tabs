@@ -6,14 +6,17 @@
         console.log("\n\nBUILD OK");
     });
 
-    var EXPECTED_NODE_VERSION = "v5.4.0";
     desc("Check Node version");
     task("version", function() {
         console.log("Checking Node version: .");
+
+        var packageJson = require("./package.json");
+        var expectedVersion = "v" + packageJson.engines.node;
+
         var actualVersion = process.version;
-        if (actualVersion !== EXPECTED_NODE_VERSION) {
+        if (actualVersion !== expectedVersion) {
             fail("Incorrect Node version: expected " +
-                 EXPECTED_NODE_VERSION + ", but was " + actualVersion);
+                 expectedVersion + ", but was " + actualVersion);
         }
     });
 }());
